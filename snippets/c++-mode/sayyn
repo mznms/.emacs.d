@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: sayyn
+# key: yn
+# --
+void yn(bool whichshouldisay)
+{
+    if (whichshouldisay) {
+        cout << "Yes" << '\n';
+    } else {
+        cout << "No" << '\n';
+    }
+    exit(0);
+}

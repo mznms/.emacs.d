@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: vcin2
+# key: vcin2
+# --
+template <class C, class D>
+inline void vcin(C& c, D& d)
+{
+    for (auto it1 = c.begin(), it2 = d.begin(); it1 != c.end() && it2 != d.end(); it1++, it2++) {
+        cin >> *it1 >> *it2;
+    }
+}

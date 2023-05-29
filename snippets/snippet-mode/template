@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: template
+# key: template
+# --
+# -*- mode: snippet -*-
+# name: ${1:name}
+# key: ${2:key}
+# --
+$0

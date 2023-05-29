@@ -1,0 +1,17 @@
+/**
+ * Contest: `(substring (shell-command-to-string "acc contest -t")0 -1)` [`(substring (shell-command-to-string "acc contest -u") 0 -1)`]
+ * Task   : `(substring (shell-command-to-string "acc task -l") 0 -1)` - `(substring (shell-command-to-string "acc task -t") 0 -1)`
+ * Created: `(concat (format-time-string "%Y-%m-%dT%T") ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5))) (format-time-string "%z")))`
+ */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+int main()
+{
+    cin.tie(0)->sync_with_stdio(0);
+
+    $0
+}
