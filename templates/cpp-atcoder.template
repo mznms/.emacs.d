@@ -7,11 +7,84 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
+// clang-format off
+#ifndef NOMACROS
+
+#ifdef LOCAL
+#define debug(...) debug_internal(#__VA_ARGS__, __VA_ARGS__)
+template <class T, class... Args>
+void debug_internal(const char* s, T&& first, Args&&... args)
+{
+    constexpr const char* open_brakets = sizeof...(args) == 0 ? "" : "(";
+    constexpr const char* close_brakets = sizeof...(args) == 0 ? "" : ")";
+    cerr << open_brakets << s << close_brakets << ": "
+              << open_brakets << std::forward<T>(first);
+    ((cerr << ", " << std::forward<Args>(args)), ...);
+    cerr << close_brakets << endl;
+}
+#else
+#define debug(x) static_assert(true, "")
+#endif // LOCAL
+
+#define GET_MACRO_5(_1, _2, _3, _4, _5, NAME, ...) NAME
+#define GET_MACRO_4(_1, _2, _3, _4, NAME, ...) NAME
+#define rep(...) GET_MACRO_5(__VA_ARGS__, rep5, rep4, rep3, rep2, rep1)(__VA_ARGS__)
+#define rrep(...) GET_MACRO_4(__VA_ARGS__, rrep4, rrep3, rrep2, rrep1)(__VA_ARGS__)
+#define rep1(n) rep2(_, n)
+#define rep2(i, n) rep3(i, 0, n)
+#define rep3(i, a, n) rep4(i, a, n, 1)
+#define rep4(i, a, n, d) rep5(i, a, n, d, <)
+#define rep5(i, a, n, d, o) for (auto i = decltype(n)(a), _n = (n); i o _n; i += (d))
+#define rrep1(n) rrep2(_, n)
+#define rrep2(i, n) rrep3(i, n, -1)
+#define rrep3(i, a, n) rrep4(i, a, n, 1)
+#define rrep4(i, a, n, d) rep5(i, a, n, -d, >)
+
+#define ALL(c) begin(c), end(c)
+#define RALL(c) rbegin(c), rend(c)
+#define SORT(v) sort(ALL(v))
+#define RSORT(v) sort(RALL(v))
+#define REV(v) reverse(ALL(v))
+#define pb push_back
+using ld = long double;
+using ll = long long;
+using ull = unsigned long long;
+using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+template <typename T> using vc = vector<T>;
+template <typename T> using vvc = vector<vc<T>>;
+using vb = vc<bool>;
+using vi = vc<int>;
+using vll = vc<ll>;
+using vpii = vc<pii>;
+using vpll = vc<pll>;
+using vs = vc<string>;
+using vvb = vvc<bool>;
+using vvi = vvc<int>;
+void YesNo(bool b) { cout << (b ? "Yes" : "No") << endl; }
+template <typename T> inline bool chmax(T &a, T b) { return (a < b) && (a = b, true); }
+template <typename T> inline bool chmin(T &a, T b) { return (a > b) && (a = b, true); }
+
+void _cin() {}
+template <class Head, class... Tail> void _cin(Head&& head, Tail&&... tail) { cin >> head; _cin(std::forward<Tail>(tail)...); }
+#define IN(Type, ...) Type __VA_ARGS__; _cin(__VA_ARGS__)
+#define INV(Type, xs, n) vector<Type> xs(n); rep(i, n) cin >> xs[i]
+#define INV2(Type, xs, ys, n) vector<Type> xs(n), ys(n); rep(i, n) cin >> xs[i] >> ys[i]
+#define INV3(Type, xs, ys, zs, n) vector<Type> xs(n), ys(n), zs(n); rep(i, n) cin >> xs[i] >> ys[i] >> zs[i]
+#define INVV(Type, xs, h, w) vector<vector<Type>> xs(h, vector<Type>(w)); rep(i, h) rep(j, w) cin >> xs[i][j]
+void OUT() { cout << endl; }
+template <class Head, class... Tail> void OUT(Head&& head, Tail&&... tail) { cout << head; if (sizeof...(tail) != 0) cout << endl; OUT(std::forward<Tail>(tail)...); }
+template <class Head, class... Tail> void OUTS(Head&& head, Tail&&... tail) { cout << head; if (sizeof...(tail) != 0) cout << " "; OUT(std::forward<Tail>(tail)...); }
+template <class Type> void OUT(vector<Type> &vec) { for (auto& a : vec) { cout << a; if (&a != &vec.back()) cout << endl; } }
+template <class Type> void OUTS(vector<Type> &vec) { for (auto& a : vec) { cout << a; if (&a != &vec.back()) cout << " "; } cout << endl; }
+template <class Type> void OUT(vector<vector<Type>> &df) { for (auto& vec : df) { OUT(vec); } }
+
+struct InitCppIo { InitCppIo() noexcept { cin.tie(nullptr); ios::sync_with_stdio(false); } } initCppIo;
+
+#endif // NOMACROS
+// clang-format on
 
 int main()
 {
-    cin.tie(0)->sync_with_stdio(0);
-
     $0
 }

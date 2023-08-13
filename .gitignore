@@ -31,3 +31,4 @@ session*
 .dap-breakpoints
 .lsp-session*
 .mc-lists.el
+/.extension/

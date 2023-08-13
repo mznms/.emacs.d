@@ -929,6 +929,36 @@
   :added "2023-01-05"
   :ensure t)
 
+;; Haskell
+(leaf haskell-mode
+  :doc "A Haskell editing mode"
+  :req "emacs-25.1"
+  :tag "haskell" "files" "faces" "emacs>=25.1"
+  :url "https://github.com/haskell/haskell-mode"
+  :added "2023-07-06"
+  :emacs>= 25.1
+  :ensure t
+  :hook
+  (haskell-mode-hook . lsp-mode)
+  (haskell-literate-mode-hook . lsp-mode)
+  :custom
+  (lsp-haskell-formatting-provider . "fourmolu")
+  (haskell-indentation-layout-offset . 4)
+  (haskell-indentation-starter-offset . 4)
+  (haskell-indentation-left-offset . 4)
+  (haskell-indentation-where-pre-offset . 4)
+  (haskell-indentation-where-post-offset . 4))
+
+(leaf lsp-haskell
+  :doc "Haskell support for lsp-mode"
+  :req "emacs-24.3" "lsp-mode-3.0" "haskell-mode-16.1"
+  :tag "haskell" "emacs>=24.3"
+  :url "https://github.com/emacs-lsp/lsp-haskell"
+  :added "2023-07-06"
+  :emacs>= 24.3
+  :ensure t
+  :after lsp-mode haskell-mode)
+
 ;; Perl
 (leaf perl-mode
   :doc "Perl code editing commands for GNU Emacs"
@@ -1545,7 +1575,8 @@
   :ensure t
   :bind
   ("M-j" . avy-goto-char-timer)
-  ("M-n" . avy-goto-line))
+  ("M-n" . avy-goto-line)
+  ("C-t" . avy-goto-char-in-line))
 
 (leaf avy-zap
   :doc "Zap to char using `avy'"
@@ -1585,18 +1616,42 @@
   :defun yas/expand-snippet
   :defvar auto-insert-query auto-insert-directory
   :preface
+  (defun my/fold-nomacros ()
+    (interactive)
+    (let* ((pos (point)))
+      (goto-char (point-min))
+      (re-search-forward "NOMACROS" nil t)
+      (ts-fold-close)
+      (goto-char (point-min))
+      (goto-char pos)))
   (defun autoinsert-yas-expand nil
     "Replace text in yasnippet template."
     (yas/expand-snippet
      (buffer-string)
      (point-min)
-     (point-max)))
+     (point-max))
+    (my/fold-nomacros))
   :when (auto-insert-mode)
   :setq ((auto-insert-query))
   :config
   (setf auto-insert-directory "~/.emacs.d/templates/")
   (define-auto-insert "/atcoder/.*\\.cpp\\'"
     ["cpp-atcoder.template" autoinsert-yas-expand]))
+
+(leaf fringe-helper
+  :doc "helper functions for fringe bitmaps"
+  :tag "lisp"
+  :url "http://nschum.de/src/emacs/fringe-helper/"
+  :added "2023-07-23"
+  :ensure t)
+
+(leaf ts-fold
+  :tag "out-of-MELPA"
+  :added "2023-07-22"
+  :el-get emacs-tree-sitter/ts-fold
+  :require t
+  :hook
+  (tree-sitter-after-on-hook . ts-fold-indicators-mode))
 
 ;; Re-enable magic file name
 (setq file-name-handler-alist my-saved-file-name-handler-alist)

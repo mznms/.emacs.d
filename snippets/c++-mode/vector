@@ -2,4 +2,4 @@
 # name: vector
 # key: vec
 # --
-`(progn (goto-char (point-min)) (unless (re-search-forward"^using\\s-+namespace std;" nil 'no-errer) "std::"))`vector<${1:int}> ${2:vec}(${3:n});
+`(progn (goto-char (point-min)) (unless (re-search-forward"^using\\s-+namespace std;" nil 'no-errer) "std::"))`vector<${1:int}> ${2:A}(${3:N});

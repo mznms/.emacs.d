@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: run_length
+# key: run_length
+# --
+vector<pair<char, int>> run_length(string s)
+{
+    vector<pair<char, int>> ret;
+
+    int i = 0;
+    while (i < (int)s.size()) {
+        int j = i + 1;
+        while (j < (int)s.size()) {
+            if (s[j] != s[i]) {
+                break;
+            }
+            j++;
+        }
+        ret.push_back(make_pair(s[i], j - i));
+        i = j;
+    }
+    return ret;
+}
