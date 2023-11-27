@@ -447,6 +447,7 @@
   :url "https://github.com/emacs-tree-sitter/elisp-tree-sitter"
   :added "2023-04-03"
   :emacs>= 25.1
+  :disabled t
   :ensure t
   :blackout t
   :config
@@ -461,7 +462,19 @@
   :added "2023-04-05"
   :emacs>= 25.1
   :el-get emacs-tree-sitter/tree-sitter-langs
-  :after tree-sitter)
+  :after tree-sitter
+  :disabled t)
+
+(leaf treesit-auto
+  :doc "Automatically use tree-sitter enhanced major modes"
+  :req "emacs-29.0"
+  :tag "convenience" "fallback" "mode" "major" "automatic" "auto" "treesitter" "emacs>=29.0"
+  :url "https://github.com/renzmann/treesit-auto.git"
+  :added "2023-10-27"
+  :emacs>= 29.0
+  :ensure t
+  :custom
+  (treesit-auto-install . t))
 
 (leaf dashboard
   :doc "A startup screen extracted from Spacemacs"
@@ -471,12 +484,16 @@
   :added "2022-09-30"
   :emacs>= 26.1
   :ensure t
+  :custom
+  ;; (dashboard-startup-banner . 'official)
+  ;; `(dashboard-startup-banner . ,(if (display-graphic-p) logo (concat (file-name-directory (or load-file-name (buffer-file-name))) "logos/dancing.txt")))
+  (dashboard-set-heading-icons . t)
+  (dashboard-set-file-icons . t)
   :config
   (dashboard-setup-startup-hook)
-  :custom
-  (dashboard-startup-banner . 'official)
-  (dashboard-set-heading-icons . t)
-  (dashboard-set-file-icons . t))
+  (if (display-graphic-p)
+      (setq dashboard-startup-banner 'official)
+    (setq dashboard-startup-banner (concat (file-name-directory (or load-file-name (buffer-file-name))) "logos/dancing.txt"))))
 
 (leaf beacon
   :doc "Highlight the cursor whenever the window scrolls"
@@ -610,22 +627,33 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev t)
   (add-to-list 'completion-at-point-functions #'cape-keyword t)
   (add-to-list 'completion-at-point-functions #'cape-abbrev t)
-  (add-to-list 'completion-at-point-functions #'cape-ispell t)
+  ;; (add-to-list 'completion-at-point-functions #'cape-ispell t)
   (add-to-list 'completion-at-point-functions #'cape-symbol t)
   (defun my/lsp-capf ()
     (setq-local completion-at-point-functions
                 (list (cape-super-capf
                        #'lsp-completion-at-point
-                       #'cape-yasnippet))))
+                       ;; #'cape-yasnippet
+                       #'yasnippet-capf
+                       ))))
   (add-hook 'lsp-completion-mode-hook #'my/lsp-capf))
 
-(leaf cape-yasnippet
+;; (leaf cape-yasnippet
+;;   :tag "out-of-MELPA"
+;;   :added "2023-04-04"
+;;   :el-get anoduck/cape-yasnippet
+;;   :defun cape-yasnippet
+;;   :require t
+;;   :after cape)
+
+(leaf yasnippet-capf
   :tag "out-of-MELPA"
-  :added "2023-04-04"
-  :el-get elken/cape-yasnippet
-  :defun cape-yasnippet
+  :added "2023-08-13"
+  :el-get elken/yasnippet-capf
   :require t
-  :after cape)
+  :after cape
+  :config
+  (add-to-list 'completion-at-point-functions #'yasnippet-capf))
 
 (leaf vertico
   :doc "VERTical Interactive COmpletion"
@@ -1249,13 +1277,14 @@
   (:smartparens-mode-map
    ("M-<DEL>" . sp-backward-unwrap-sexp)
    ("M-]"     . sp-up-sexp)
-   ("M-["     . sp-down-sexp)
-   ("C-("     . sp-beginning-of-sexp)
-   ("C-)"     . sp-end-of-sexp)
-   ("C-M-f"   . sp-forward-sexp)
-   ("C-M-b"   . sp-backward-sexp)
-   ("C-M-n"   . sp-next-sexp)
-   ("C-M-p"   . sp-previous-sexp))
+   ;; ("M-["     . sp-down-sexp)
+   ;; ("C-("     . sp-beginning-of-sexp)
+   ;; ("C-)"     . sp-end-of-sexp)
+   ;; ("C-M-f"   . sp-forward-sexp)
+   ;; ("C-M-b"   . sp-backward-sexp)
+   ;; ("C-M-n"   . sp-next-sexp)
+   ;; ("C-M-p"   . sp-previous-sexp)
+  )
   :config
   (sp-local-pair 'org-mode "*" "*")
   (sp-local-pair 'org-mode "=" "=")
